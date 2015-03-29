@@ -46,9 +46,13 @@ var MiniCartDropdown = React.createClass({
     var basketItems = this.props.items.map(function(item){
       return <MiniCartDropdownBasketRow item={item}/>
     }.bind(this));
+
     return(
       <div>
-       
+        <ul>
+          {basketItems}
+        </ul>
+        <MiniCartDropdownBasketTotals />
       </div>
     )
   }
@@ -59,9 +63,9 @@ var MiniCartDropdown = React.createClass({
 var MiniCartDropdownBasketRow = React.createClass({
   render: function(){
     return(
-      <div>
+      <li>
        
-      </div>
+      </li>
     )
   }
 
