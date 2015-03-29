@@ -18,6 +18,11 @@ var MiniCart = React.createClass({
         isVisible : !current
     });
   },
+  toggleMiniCartDropdown: function(){
+    this.setState({
+          miniCartDropdownIsVisible : !this.state.miniCartDropdownIsVisible
+    });
+  },
   render: function(){
 
     var price = function(){
@@ -28,9 +33,9 @@ var MiniCart = React.createClass({
     }
 
     return(
-      <div>
+      <div onMouseEnter={this.toggleMiniCartDropdown} onMouseLeave={this.toggleMiniCartDropdown}>
         <div>{this.state.cart.items.length} {price}</div>
-        <MiniCartDropdown items={this.state.cart.items}></MiniCartDropdown>
+        <MiniCartDropdown items={this.state.cart.items} visible={this.state.miniCartDropdownIsVisible}></MiniCartDropdown>
       </div>
     )
   }
@@ -47,8 +52,13 @@ var MiniCartDropdown = React.createClass({
       return <MiniCartDropdownBasketRow item={item}/>
     }.bind(this));
 
+     //pass in, inline styles as an object literal
+    var inlineStyles = {
+      display: this.props.visible ? 'block':'none'
+    };
+
     return(
-      <div>
+      <div style={inlineStyles}>
         <ul>
           {basketItems}
         </ul>
@@ -64,7 +74,20 @@ var MiniCartDropdownBasketRow = React.createClass({
   render: function(){
     return(
       <li>
-       
+        <div>
+          <img src={this.props.item.image} />
+          <p>{this.props.item.productName}</p>
+          <p>code: {this.props.item.sku}</p>
+          <p><strong>size</strong>:{this.props.item.size}</p>
+        </div>
+        <div>
+          <a>+</a>
+          <span>{this.props.item.quantity}</span>
+          <a>-</a>
+        </div>
+        <div>
+          {this.props.item.subtotal}
+        </div>
       </li>
     )
   }
