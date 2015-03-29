@@ -1,0 +1,23 @@
+{
+  "name": "mini-cart-react-component",
+  "version": "0.0.1",
+  "homepage": "https://github.com/aidan-gee/mini-cart-react-component",
+  "authors": [
+    "aidan-gee <aidangeewd@gmail.com>"
+  ],
+  "description": "This is mini cart ui component displaying price and items in basket.",
+  "main": "index.html",
+  "keywords": [
+    "react",
+    "mini",
+    "cart"
+  ],
+  "license": "GNU",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

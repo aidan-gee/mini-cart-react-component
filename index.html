@@ -1,0 +1,18 @@
+<!-- index.html -->
+<html>
+  <head>
+    <title>Mini-Cart Demo</title>
+    <script src="bower_components/react/react.js"></script>
+    <script src="http://fb.me/JSXTransformer-0.12.2.js"></script>
+  </head>
+  <body>
+    <div id="miniCart"></div>
+    <script type="text/jsx" src="mini-cart-component/miniCart.jsx"></script>
+    <script type="text/jsx">  
+      React.render(
+        <MiniCart data=""/>,
+        document.getElementById('miniCart')
+      );
+    </script>
+  </body>
+</html>
