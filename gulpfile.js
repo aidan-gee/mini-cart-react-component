@@ -1,7 +1,7 @@
 var gulp = require('gulp');
 var browser = require('browser-sync');
 
-gulp.task('browsersync', ['html', 'js'], function() {
+gulp.task('browsersync', ['html', 'js', 'css'], function() {
 	browser({
 	    port: 8080,
 	    server: {
@@ -15,6 +15,9 @@ gulp.task('html', function () {
 });
 gulp.task('js', function () {
     gulp.watch(["**/*.jsx"], browser.reload);
+});
+gulp.task('css', function () {
+    gulp.watch(["**/*.css"], browser.reload);
 });
 
 gulp.task('default', ['browsersync']);

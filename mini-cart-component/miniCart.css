@@ -1,0 +1,38 @@
+.miniCart > div, .miniCart > button, .miniCartDropdownBasketRow > div,
+.miniCartDropdownBasketRow img {
+	display:inline-block;
+}
+.miniCart > button {
+	margin      : 0;
+	border      : 0;
+	padding: 5px;
+	background-color: #e9e9e9;
+	font-size   : 1em;
+	cursor      : pointer;
+}
+.miniCart > div:first-child {
+	border:1px solid #454545;
+	padding: 5px;
+	vertical-align: top;
+}
+.miniCartDropdown > ul {
+	list-style-type: none;
+	padding: 0;
+}
+.miniCartDropdownBasketRow img{
+	 width:55px;
+	 height:70px;
+}
+.miniCartDropdownBasketRow > div {
+	vertical-align: top;
+}
+.miniCartDropdownBasketRow > div.rowQuantity {
+	text-align: center;
+}
+.miniCartDropdownBasketRow > div > p {
+	margin: 2px;
+}
+.miniCartDropdownBasketRow > div > button {
+	display:block;
+	width:100%;
+}
