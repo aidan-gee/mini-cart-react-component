@@ -29,16 +29,17 @@ var MiniCart = React.createClass({
     window.location = this.props.checkoutUrl;
   },
   increaseQuantity: function(item){
-    console.log("increase");
     // make api request on response update quantity 
     // for now just ++ 
     var items = this.state.cart.items;
+    var totalPrice = this.state.cart.totalPrice;
     for (var i = items.length - 1; i >= 0; i--) {
       if (items[i] == item){
         items[i].quantity++;
         this.setState({
           cart : {
-            items: items
+            items: items,
+            totalPrice: totalPrice
           }
         });
       }
@@ -48,6 +49,7 @@ var MiniCart = React.createClass({
     // make api request on response update quantity 
     // for now just -- 
     var items = this.state.cart.items;
+    var totalPrice = this.state.cart.totalPrice;
     // search for item in state 
     // decrease the quantity or remove the item
     for (var i = items.length - 1; i >= 0; i--) {
@@ -56,7 +58,8 @@ var MiniCart = React.createClass({
           items[i].quantity--;
           this.setState({
             cart : {
-              items: items
+              items: items,
+              totalPrice: totalPrice
             }
           });
         return;
@@ -66,7 +69,8 @@ var MiniCart = React.createClass({
           items.splice(i , 1);
           this.setState({
             cart : {
-              items: items
+              items: items,
+              totalPrice: totalPrice
             }
           });
         }
@@ -82,7 +86,8 @@ var MiniCart = React.createClass({
         increaseQuantity={this.increaseQuantity} 
         decreaseQuantity={this.decreaseQuantity} 
         visible={this.state.miniCartDropdownIsVisible} 
-        goToCheckout={this.goToCheckout}/>
+        goToCheckout={this.goToCheckout}
+        price={this.state.cart.totalPrice} />
       </div>
     )
   }
@@ -118,7 +123,6 @@ var MiniCartDropdown = React.createClass({
     var basketItems = this.props.items.map(function(item){
       return <MiniCartDropdownBasketRow item={item} increaseQuantity={this.props.increaseQuantity} decreaseQuantity={this.props.decreaseQuantity}/>
     }.bind(this));
-    console.log(basketItems);
     //pass in, inline styles as an object literal
     var inlineStyles = {
       display: this.props.visible ? 'block':'none'
@@ -129,7 +133,7 @@ var MiniCartDropdown = React.createClass({
         <ul>
           {basketItems}
         </ul>
-        <MiniCartDropdownBasketTotals />
+        <MiniCartDropdownBasketTotals price={this.props.price}/>
         <button onClick={this.props.goToCheckout}>Checkout</button>
       </div>
     )
@@ -146,7 +150,6 @@ var MiniCartDropdownBasketRow = React.createClass({
     this.props.decreaseQuantity(this.props.item);
   },
   render: function(){
-    console.log(this.props);
     //pass in, inline styles as an object literal
     var inline = {
       display: "inline-block"
@@ -176,9 +179,10 @@ var MiniCartDropdownBasketRow = React.createClass({
 // All the totals for the basket
 var MiniCartDropdownBasketTotals = React.createClass({
   render: function(){
+    console.log(this.props.price);
     return(
-      <div>
-       
+      <div className="basketTotals">
+        Total : £{this.props.price}
       </div>
     )
   }

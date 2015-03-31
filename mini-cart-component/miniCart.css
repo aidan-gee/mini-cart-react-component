@@ -21,6 +21,9 @@
 	vertical-align: top;
 	width: 105px;
 }
+.miniCart .basketTotals {
+	padding: 10px 0;
+}
 .miniCartDropdown{
 	width: 300px;
 	position: absolute;
@@ -30,6 +33,7 @@
 .miniCartDropdown > ul {
 	list-style-type: none;
 	padding: 0;
+	margin-bottom: 0;
 }
 .miniCartDropdown > button {
 	width:100%;
