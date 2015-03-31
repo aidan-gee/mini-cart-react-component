@@ -17,7 +17,7 @@ var MiniCart = React.createClass({
       var current = this.state.isVisible;
       this.setState({
         isVisible : !current
-    });
+      });
   },
   toggleMiniCartDropdown: function(){
     this.setState({
@@ -29,9 +29,43 @@ var MiniCart = React.createClass({
   },
   increaseQuantity: function(item){
     console.log("increase");
+    // make api request on response update quantity 
+    // for now just ++ 
+    var items = this.state.cart.items;
+    for (var i = items.length - 1; i >= 0; i--) {
+      if (items[i] == item){
+        items[i].quantity++;
+        this.setState({
+          cart : {
+            items: items
+          }
+        });
+      }
+    }
   },
   decreaseQuantity: function(item){
-    console.log("decrease");
+     // make api request on response update quantity 
+    // for now just -- 
+    var items = this.state.cart.items;
+    for (var i = items.length - 1; i >= 0; i--) {
+      if (items[i] == item && items[i].quantity > 1){
+        items[i].quantity--;
+        this.setState({
+          cart : {
+            items: items
+          }
+        });
+      }
+      else if (items[i].quantity == 1){
+        // remove item
+        items.splice(i , 1);
+        this.setState({
+          cart : {
+            items: items
+          }
+        });
+      }
+    }
   },
   render: function(){
   
@@ -46,7 +80,11 @@ var MiniCart = React.createClass({
       <div onMouseEnter={this.toggleMiniCartDropdown} onMouseLeave={this.toggleMiniCartDropdown} className="miniCart">
         <div>{this.state.cart.items.length} items {price}</div>
         <button onClick={this.state.goToCheckout}>Checkout</button>
-        <MiniCartDropdown items={this.state.cart.items} increaseQuantity={this.increaseQuantity} decreaseQuantity={this.decreaseQuantity} visible={this.state.miniCartDropdownIsVisible}/>
+        <MiniCartDropdown items={this.state.cart.items} 
+        increaseQuantity={this.increaseQuantity} 
+        decreaseQuantity={this.decreaseQuantity} 
+        visible={this.state.miniCartDropdownIsVisible} 
+        goToCheckout={this.goToCheckout}/>
       </div>
     )
   }
@@ -74,6 +112,7 @@ var MiniCartDropdown = React.createClass({
           {basketItems}
         </ul>
         <MiniCartDropdownBasketTotals />
+        <button onClick={this.props.goToCheckout}>Checkout</button>
       </div>
     )
   }
@@ -97,7 +136,7 @@ var MiniCartDropdownBasketRow = React.createClass({
     return(
       <li className="miniCartDropdownBasketRow">
         <img src={this.props.item.image}/>
-        <div>
+        <div className="itemInfo">
           <p>{this.props.item.productName}</p>
           <p>code: {this.props.item.sku}</p>
           <p><strong>size</strong>:{this.props.item.size}</p>

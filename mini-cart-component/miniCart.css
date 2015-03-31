@@ -2,6 +2,11 @@
 .miniCartDropdownBasketRow img {
 	display:inline-block;
 }
+.miniCart {
+	width:200px;
+	float:right;
+	position: relative;
+}
 .miniCart > button {
 	margin      : 0;
 	border      : 0;
@@ -14,10 +19,23 @@
 	border:1px solid #454545;
 	padding: 5px;
 	vertical-align: top;
+	width: 105px;
+}
+.miniCartDropdown{
+	width: 300px;
+	position: absolute;
+	right: 0;
 }
 .miniCartDropdown > ul {
 	list-style-type: none;
 	padding: 0;
+}
+.miniCartDropdownBasketRow {
+	padding: 5px 2px;
+	border-bottom:1px solid #e9e9e9;
+}
+.miniCartDropdownBasketRow:first-child{
+	border-top:1px solid #e9e9e9;
 }
 .miniCartDropdownBasketRow img{
 	 width:55px;
@@ -25,12 +43,18 @@
 }
 .miniCartDropdownBasketRow > div {
 	vertical-align: top;
+	padding: 0 10px;
 }
 .miniCartDropdownBasketRow > div.rowQuantity {
 	text-align: center;
+	width:10%;
+}
+.miniCartDropdownBasketRow .itemInfo {
+	width:50%;
 }
 .miniCartDropdownBasketRow > div > p {
 	margin: 2px;
+	width: 100px;
 }
 .miniCartDropdownBasketRow > div > button {
 	display:block;
