@@ -13,15 +13,14 @@ var MiniCart = React.createClass({
         miniCartDropdownIsVisible: false
       }
     },
-    toggleMiniCart: function(){
-      var current = this.state.isVisible;
-      this.setState({
-        isVisible : !current
-      });
-  },
-  toggleMiniCartDropdown: function(){
+  showMiniCartDropdown: function(){
     this.setState({
-          miniCartDropdownIsVisible : !this.state.miniCartDropdownIsVisible
+          miniCartDropdownIsVisible : true
+    });
+  },
+  hideMiniCartDropdown: function(){
+    this.setState({
+          miniCartDropdownIsVisible : false
     });
   },
   goToCheckout: function(){
@@ -55,6 +54,7 @@ var MiniCart = React.createClass({
             items: items
           }
         });
+        return;
       }
       else if (items[i].quantity == 1){
         // remove item
@@ -77,7 +77,7 @@ var MiniCart = React.createClass({
     }
 
     return(
-      <div onMouseEnter={this.toggleMiniCartDropdown} onMouseLeave={this.toggleMiniCartDropdown} className="miniCart">
+      <div onMouseEnter={this.showMiniCartDropdown} onMouseLeave={this.hideMiniCartDropdown} className="miniCart clearfix">
         <div>{this.state.cart.items.length} items {price}</div>
         <button onClick={this.state.goToCheckout}>Checkout</button>
         <MiniCartDropdown items={this.state.cart.items} 
