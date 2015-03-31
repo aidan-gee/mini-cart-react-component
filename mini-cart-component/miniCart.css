@@ -25,10 +25,15 @@
 	width: 300px;
 	position: absolute;
 	right: 0;
+	padding:10px;
 }
 .miniCartDropdown > ul {
 	list-style-type: none;
 	padding: 0;
+}
+.miniCartDropdown > button {
+	width:100%;
+	border:0;
 }
 .miniCartDropdownBasketRow {
 	padding: 5px 2px;

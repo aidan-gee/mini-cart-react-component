@@ -45,42 +45,38 @@ var MiniCart = React.createClass({
     }
   },
   decreaseQuantity: function(item){
-     // make api request on response update quantity 
+    // make api request on response update quantity 
     // for now just -- 
     var items = this.state.cart.items;
+    // search for item in state 
+    // decrease the quantity or remove the item
     for (var i = items.length - 1; i >= 0; i--) {
-      if (items[i] == item && items[i].quantity > 1){
-        items[i].quantity--;
-        this.setState({
-          cart : {
-            items: items
-          }
-        });
+      if (items[i] == item){
+        if(items[i].quantity > 1){
+          items[i].quantity--;
+          this.setState({
+            cart : {
+              items: items
+            }
+          });
         return;
-      }
-      else if (items[i].quantity == 1){
-        // remove item
-        items.splice(i , 1);
-        this.setState({
-          cart : {
-            items: items
-          }
-        });
+        }
+        else if (items[i].quantity == 1){
+          // remove item
+          items.splice(i , 1);
+          this.setState({
+            cart : {
+              items: items
+            }
+          });
+        }
       }
     }
   },
   render: function(){
-  
-    var price = function(){
-      if (this.state.cart.items.length > 0){
-        console.log(this.state.cart.totalPrice);
-        return <span> {this.state.cart.totalPrice}</span>;
-      }
-    }
-
     return(
       <div onMouseEnter={this.showMiniCartDropdown} onMouseLeave={this.hideMiniCartDropdown} className="miniCart clearfix">
-        <div>{this.state.cart.items.length} items {price}</div>
+        <MiniCartDetails items={this.state.cart.items} price={this.state.cart.totalPrice}/>
         <button onClick={this.state.goToCheckout}>Checkout</button>
         <MiniCartDropdown items={this.state.cart.items} 
         increaseQuantity={this.increaseQuantity} 
@@ -88,6 +84,26 @@ var MiniCart = React.createClass({
         visible={this.state.miniCartDropdownIsVisible} 
         goToCheckout={this.goToCheckout}/>
       </div>
+    )
+  }
+});
+
+var MiniCartDetails = React.createClass({
+
+  render: function(){
+    var items;
+    if (typeof this.props.items.length !== 'undefined' && this.props.items.length !== 0){
+      items = <span>{this.props.items.length} items</span>;
+    } 
+    else items = <span>Cart empty</span>;
+
+    var price;
+    if (typeof this.props.price !== 'undefined' && this.props.price !== 0){
+      price = <span>£{this.props.price}</span>;
+    }
+  
+    return(
+      <div>{items} {price}</div>
     )
   }
 });
@@ -102,7 +118,7 @@ var MiniCartDropdown = React.createClass({
     var basketItems = this.props.items.map(function(item){
       return <MiniCartDropdownBasketRow item={item} increaseQuantity={this.props.increaseQuantity} decreaseQuantity={this.props.decreaseQuantity}/>
     }.bind(this));
-
+    console.log(basketItems);
     //pass in, inline styles as an object literal
     var inlineStyles = {
       display: this.props.visible ? 'block':'none'
