@@ -14,9 +14,11 @@ var MiniCart = React.createClass({
       }
     },
   showMiniCartDropdown: function(){
-    this.setState({
+    if (this.state.cart.items.length){
+      this.setState({
           miniCartDropdownIsVisible : true
-    });
+      });
+    }
   },
   hideMiniCartDropdown: function(){
     this.setState({
