@@ -3,16 +3,40 @@
 */
 
 var MiniCart = React.createClass({
-    getInitialState: function(){
-      return {
-        cart : {
-          items:[{productName: "Test 1", image: "http://placehold.it/55x70", sku:"000001", size:5, quantity:1},
-          {productName: "Test 2", image: "http://placehold.it/55x70", sku:"000002", size:2, quantity:2}],
-          totalPrice: 60
-        },
-        miniCartDropdownIsVisible: false
-      }
-    },
+  getInitialState: function(){
+    return {
+      cart : {
+        items:[{productName: "Test 1", image: "http://placehold.it/55x70", sku:"000001", size:5, quantity:1},
+        {productName: "Test 2", image: "http://placehold.it/55x70", sku:"000002", size:2, quantity:2}],
+        totalPrice: 60
+      },
+      miniCartDropdownIsVisible: false,
+      loading:false
+    }
+  },
+  componentDidMount: function() {
+    //attatch a global event listener for when adding to cart 
+    var update = this.update;
+    console.log("componenet mounting");
+    console.log(update);
+    window.addEventListener('addToCart', function(event) {
+        console.log("HEARD EVENT");
+        update();
+    });
+  },
+  update: function() {
+    this.setState({
+          loading : true
+    });
+    //make request for updated cart (fudge a request time for now)
+    var that = this;
+    setTimeout(function(){
+      that.setState({
+          loading : false
+      });
+    },2000)
+    
+  },
   showMiniCartDropdown: function(){
     if (this.state.cart.items.length){
       this.setState({
@@ -80,7 +104,7 @@ var MiniCart = React.createClass({
   render: function(){
     return(
       <div onMouseEnter={this.showMiniCartDropdown} onMouseLeave={this.hideMiniCartDropdown} className="miniCart clearfix">
-        <MiniCartDetails items={this.state.cart.items} price={this.state.cart.totalPrice}/>
+        <MiniCartDetails items={this.state.cart.items} price={this.state.cart.totalPrice} loading={this.state.loading}/>
         <button onClick={this.state.goToCheckout}>Checkout</button>
         <MiniCartDropdown items={this.state.cart.items} 
         increaseQuantity={this.increaseQuantity} 
@@ -106,9 +130,17 @@ var MiniCartDetails = React.createClass({
     if (typeof this.props.price !== 'undefined' && this.props.price !== 0){
       price = <span>£{this.props.price}</span>;
     }
+
+    //pass in, inline styles as an object literal
+    var inlineStyles = {
+      display: this.props.loading ? 'block':'none'
+    };
   
     return(
-      <div>{items} {price}</div>
+      <div>
+        <span className="loader" style={inlineStyles}><i className="fa fa-circle-o-notch fa-spin"></i></span>
+        {items} {price}
+      </div>
     )
   }
 });

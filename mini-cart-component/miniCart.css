@@ -20,9 +20,16 @@
 	padding: 5px;
 	vertical-align: top;
 	width: 105px;
+	position: relative;
 }
 .miniCart .basketTotals {
 	padding: 10px 0;
+}
+.miniCart span.loader{
+	width:95%;
+	background-color: #FFF;
+	text-align: center;
+	position: absolute;
 }
 .miniCartDropdown{
 	width: 300px;
